@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "Graphics.h"
 
 Game::Game( MainWindow& wnd )
 	:
@@ -42,5 +43,5 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	
+	gfx.PutPixel(300, 300, 255, 0, 0);
 }
