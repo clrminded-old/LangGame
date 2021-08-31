@@ -129,16 +129,27 @@ void Game::UpdateModel()
         x = 5;
         vx = 0;
     }
-    if (x + 5 >= 800) {
-        x = 794;
+    // You can do this...
+    //if (x + 5 >= 800) {
+    //    x = 794;
+    //    vx = 0;
+    //}
+    // But a much more sexier way is like this
+    if (x + 5 >= gfx.ScreenWidth) {
+        x = gfx.ScreenWidth - 5 - 1;
         vx = 0;
     }
     if (y - 5 < 0) {
         y = 5;
         vy = 0;
     }
-    if (y + 5 >= 600) {
-        y = 594;
+    // Same sexiness here...
+    // if (y + 5 >= 600) {
+    //     y = 594;
+    //     vy = 0;
+    // }
+    if (y + 5 >= gfx.ScreenHeight) {
+        y = gfx.ScreenHeight - 5 - 1;
         vy = 0;
     }
 
@@ -5824,12 +5835,13 @@ void Game::DrawEmpty64by64(int x, int y) {
 
 void Game::ComposeFrame()
 {
-    if (shapeIsChanged) {
-        DrawBox(x, y, 255, gb, gb);
-    }
-    else {
-        DrawCrosshair(x, y, 255, gb, gb);
-    }
+    DrawBox(200, 100, 255, 255, 255);
+    DrawBox(200, 500, 255, 255, 255);
+    DrawBox(400, 100, 255, 255, 255);
+    DrawBox(400, 500, 255, 255, 255);
+   
+    DrawCrosshair(x, y, 255, gb, gb);
+    
 }
 
 /**
