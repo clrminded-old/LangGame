@@ -94,6 +94,291 @@ void Game::DrawBox(int x, int y)
 
 }
 
+void DrawCeeplusplus(int x, int y) {
+    // layer 0 x
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    
+    
+    // layer 1
+    gfx.PutPixel(x +  0, y + 1, 0, 0, 0);
+    gfx.PutPixel(x +  1, y + 1, 0, 0, 0);
+    gfx.PutPixel(x +  2, y + 1, 0, 0, 0);
+    gfx.PutPixel(x +  3, y + 1, 0, 0, 0);
+    gfx.PutPixel(x +  4, y + 1, 0, 0, 0);
+    gfx.PutPixel(x +  5, y + 1, 0, 0, 0);
+    gfx.PutPixel(x +  6, y + 1, 0, 0, 0);
+    gfx.PutPixel(x +  7, y + 1, 0, 0, 0);
+    gfx.PutPixel(x +  8, y + 1, 0, 0, 0);
+    gfx.PutPixel(x +  9, y + 1, 0, 0, 0);
+    gfx.PutPixel(x + 10, y + 1, 0, 0, 0);
+    gfx.PutPixel(x + 11, y + 1, 0, 0, 0);
+    gfx.PutPixel(x + 12, y + 1, 0, 0, 0);
+    gfx.PutPixel(x + 13, y + 1, 0, 0, 0);
+    gfx.PutPixel(x + 14, y + 1, 0, 0, 0);
+    gfx.PutPixel(x + 15, y + 1, 0, 0, 0);
+    
+    // layer 2
+    gfx.PutPixel(x +  0, y + 2, 0, 0, 0);
+    gfx.PutPixel(x +  1, y + 2, 0, 0, 0);
+    gfx.PutPixel(x +  2, y + 2, 0, 0, 0);
+    gfx.PutPixel(x +  3, y + 2, 0, 0, 0);
+    gfx.PutPixel(x +  4, y + 2, 0, 0, 0);
+    gfx.PutPixel(x +  5, y + 2, 0, 0, 0);
+    gfx.PutPixel(x +  6, y + 2, 0, 0, 0);
+    gfx.PutPixel(x +  7, y + 2, 0, 0, 0);
+    gfx.PutPixel(x +  8, y + 2, 0, 0, 0);
+    gfx.PutPixel(x +  9, y + 2, 0, 0, 0);
+    gfx.PutPixel(x + 10, y + 2, 0, 0, 0);
+    gfx.PutPixel(x + 11, y + 2, 0, 0, 0);
+    gfx.PutPixel(x + 12, y + 2, 0, 0, 0);
+    gfx.PutPixel(x + 13, y + 2, 0, 0, 0);
+    gfx.PutPixel(x + 14, y + 2, 0, 0, 0);
+    gfx.PutPixel(x + 15, y + 2, 0, 0, 0);
+    
+    // layer 3
+    gfx.PutPixel(x +  0, y + 3, 0, 0, 0);
+    gfx.PutPixel(x +  1, y + 3, 0, 0, 0);
+    gfx.PutPixel(x +  2, y + 3, 0, 0, 0);
+    gfx.PutPixel(x +  3, y + 3, 0, 0, 0);
+    gfx.PutPixel(x +  4, y + 3, 0, 0, 0);
+    gfx.PutPixel(x +  5, y + 3, 0, 0, 0);
+    gfx.PutPixel(x +  6, y + 3, 0, 0, 0);
+    gfx.PutPixel(x +  7, y + 3, 0, 0, 0);
+    gfx.PutPixel(x +  8, y + 3, 0, 0, 0);
+    gfx.PutPixel(x +  9, y + 3, 0, 0, 0);
+    gfx.PutPixel(x + 10, y + 3, 0, 0, 0);
+    gfx.PutPixel(x + 11, y + 3, 0, 0, 0);
+    gfx.PutPixel(x + 12, y + 3, 0, 0, 0);
+    gfx.PutPixel(x + 13, y + 3, 0, 0, 0);
+    gfx.PutPixel(x + 14, y + 3, 0, 0, 0);
+    gfx.PutPixel(x + 15, y + 3, 0, 0, 0);
+    
+    // layer 4
+    gfx.PutPixel(x +  0, y, 0, 0, 0);
+    gfx.PutPixel(x +  1, y, 0, 0, 0);
+    gfx.PutPixel(x +  2, y, 0, 0, 0);
+    gfx.PutPixel(x +  3, y, 0, 0, 0);
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    gfx.PutPixel(x + 12, y, 0, 0, 0);
+    gfx.PutPixel(x + 13, y, 0, 0, 0);
+    gfx.PutPixel(x + 14, y, 0, 0, 0);
+    gfx.PutPixel(x + 15, y, 0, 0, 0);
+    
+    // layer 5
+    gfx.PutPixel(x +  0, y, 0, 0, 0);
+    gfx.PutPixel(x +  1, y, 0, 0, 0);
+    gfx.PutPixel(x +  2, y, 0, 0, 0);
+    gfx.PutPixel(x +  3, y, 0, 0, 0);
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    gfx.PutPixel(x + 12, y, 0, 0, 0);
+    gfx.PutPixel(x + 13, y, 0, 0, 0);
+    gfx.PutPixel(x + 14, y, 0, 0, 0);
+    gfx.PutPixel(x + 15, y, 0, 0, 0);
+    
+    // layer 6
+    gfx.PutPixel(x +  0, y, 0, 0, 0);
+    gfx.PutPixel(x +  1, y, 0, 0, 0);
+    gfx.PutPixel(x +  2, y, 0, 0, 0);
+    gfx.PutPixel(x +  3, y, 0, 0, 0);
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    gfx.PutPixel(x + 12, y, 0, 0, 0);
+    gfx.PutPixel(x + 13, y, 0, 0, 0);
+    gfx.PutPixel(x + 14, y, 0, 0, 0);
+    gfx.PutPixel(x + 15, y, 0, 0, 0);
+    
+    // layer 7
+    gfx.PutPixel(x +  0, y, 0, 0, 0);
+    gfx.PutPixel(x +  1, y, 0, 0, 0);
+    gfx.PutPixel(x +  2, y, 0, 0, 0);
+    gfx.PutPixel(x +  3, y, 0, 0, 0);
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    gfx.PutPixel(x + 12, y, 0, 0, 0);
+    gfx.PutPixel(x + 13, y, 0, 0, 0);
+    gfx.PutPixel(x + 14, y, 0, 0, 0);
+    gfx.PutPixel(x + 15, y, 0, 0, 0);
+    
+    // layer 8
+    gfx.PutPixel(x +  0, y, 0, 0, 0);
+    gfx.PutPixel(x +  1, y, 0, 0, 0);
+    gfx.PutPixel(x +  2, y, 0, 0, 0);
+    gfx.PutPixel(x +  3, y, 0, 0, 0);
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    gfx.PutPixel(x + 12, y, 0, 0, 0);
+    gfx.PutPixel(x + 13, y, 0, 0, 0);
+    gfx.PutPixel(x + 14, y, 0, 0, 0);
+    gfx.PutPixel(x + 15, y, 0, 0, 0);
+    
+    // layer 9
+    gfx.PutPixel(x +  0, y, 0, 0, 0);
+    gfx.PutPixel(x +  1, y, 0, 0, 0);
+    gfx.PutPixel(x +  2, y, 0, 0, 0);
+    gfx.PutPixel(x +  3, y, 0, 0, 0);
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    gfx.PutPixel(x + 12, y, 0, 0, 0);
+    gfx.PutPixel(x + 13, y, 0, 0, 0);
+    gfx.PutPixel(x + 14, y, 0, 0, 0);
+    gfx.PutPixel(x + 15, y, 0, 0, 0);
+    
+    // layer 10
+    gfx.PutPixel(x +  0, y, 0, 0, 0);
+    gfx.PutPixel(x +  1, y, 0, 0, 0);
+    gfx.PutPixel(x +  2, y, 0, 0, 0);
+    gfx.PutPixel(x +  3, y, 0, 0, 0);
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    gfx.PutPixel(x + 12, y, 0, 0, 0);
+    gfx.PutPixel(x + 13, y, 0, 0, 0);
+    gfx.PutPixel(x + 14, y, 0, 0, 0);
+    gfx.PutPixel(x + 15, y, 0, 0, 0);
+    
+    // layer 11
+    gfx.PutPixel(x +  0, y, 0, 0, 0);
+    gfx.PutPixel(x +  1, y, 0, 0, 0);
+    gfx.PutPixel(x +  2, y, 0, 0, 0);
+    gfx.PutPixel(x +  3, y, 0, 0, 0);
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    gfx.PutPixel(x + 12, y, 0, 0, 0);
+    gfx.PutPixel(x + 13, y, 0, 0, 0);
+    gfx.PutPixel(x + 14, y, 0, 0, 0);
+    gfx.PutPixel(x + 15, y, 0, 0, 0);
+    
+    // layer 12
+    gfx.PutPixel(x +  0, y, 0, 0, 0);
+    gfx.PutPixel(x +  1, y, 0, 0, 0);
+    gfx.PutPixel(x +  2, y, 0, 0, 0);
+    gfx.PutPixel(x +  3, y, 0, 0, 0);
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    gfx.PutPixel(x + 12, y, 0, 0, 0);
+    gfx.PutPixel(x + 13, y, 0, 0, 0);
+    gfx.PutPixel(x + 14, y, 0, 0, 0);
+    gfx.PutPixel(x + 15, y, 0, 0, 0);
+    
+    // layer 13
+    gfx.PutPixel(x +  0, y, 0, 0, 0);
+    gfx.PutPixel(x +  1, y, 0, 0, 0);
+    gfx.PutPixel(x +  2, y, 0, 0, 0);
+    gfx.PutPixel(x +  3, y, 0, 0, 0);
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    gfx.PutPixel(x + 12, y, 0, 0, 0);
+    gfx.PutPixel(x + 13, y, 0, 0, 0);
+    gfx.PutPixel(x + 14, y, 0, 0, 0);
+    gfx.PutPixel(x + 15, y, 0, 0, 0);
+    
+    // layer 14
+    gfx.PutPixel(x +  0, y, 0, 0, 0);
+    gfx.PutPixel(x +  1, y, 0, 0, 0);
+    gfx.PutPixel(x +  2, y, 0, 0, 0);
+    gfx.PutPixel(x +  3, y, 0, 0, 0);
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    gfx.PutPixel(x + 12, y, 0, 0, 0);
+    gfx.PutPixel(x + 13, y, 0, 0, 0);
+    gfx.PutPixel(x + 14, y, 0, 0, 0);
+    gfx.PutPixel(x + 15, y, 0, 0, 0);
+    
+    // layer 15
+    gfx.PutPixel(x +  0, y, 0, 0, 0);
+    gfx.PutPixel(x +  1, y, 0, 0, 0);
+    gfx.PutPixel(x +  2, y, 0, 0, 0);
+    gfx.PutPixel(x +  3, y, 0, 0, 0);
+    gfx.PutPixel(x +  4, y, 0, 0, 0);
+    gfx.PutPixel(x +  5, y, 0, 0, 0);
+    gfx.PutPixel(x +  6, y, 0, 0, 0);
+    gfx.PutPixel(x +  7, y, 0, 0, 0);
+    gfx.PutPixel(x +  8, y, 0, 0, 0);
+    gfx.PutPixel(x +  9, y, 0, 0, 0);
+    gfx.PutPixel(x + 10, y, 0, 0, 0);
+    gfx.PutPixel(x + 11, y, 0, 0, 0);
+    gfx.PutPixel(x + 12, y, 0, 0, 0);
+    gfx.PutPixel(x + 13, y, 0, 0, 0);
+    gfx.PutPixel(x + 14, y, 0, 0, 0);
+    gfx.PutPixel(x + 15, y, 0, 0, 0);
+    
+    
+}
+
 /**
 * So the very first thing that we learn is that we have the power to control the pixels on the screen with PutPixel.
 * PutPixel is a method from the gfx class. We included the "Graphics.h" at the top that gives us the ability to use it.
