@@ -39,6 +39,9 @@ private:
 	/********************************/
 	void DrawCrosshair(int x, int y);
 	void DrawBox(int x, int y);
+	void DrawEmpty16by16(int x, int y);
+	void DrawEmpty32by32(int x, int y);
+	void DrawEmpty64by64(int x, int y);
 private:
 	MainWindow& wnd;
 	Graphics gfx;
