@@ -37,8 +37,121 @@ void Game::Go()
 	gfx.EndFrame();
 }
 
+/**
+* This is the spot where the game logic goes!
+* The logic is in update, the drawing code is in ComposeFrame!
+* Like MVC. The way everything should be done!
+* 
+* Main takeaway:
+* If we put functions and variables inside the scope of the function, it can not be "remembered"
+* The way to be remembered is put that stuff in the header and make it a member variable instead.
+* 
+* Velocity vs Position
+* Easy shit to know what the difference is. 
+* Now we have 3 solid ways of moving around a cursor.... we can left the code freely move it with velocity...
+* we can inhibit the controls of the movement to control how it moved based on whether the key is held down or not...
+* or we can just simply move the position and not deal with velocity. Alot of newly found power.
+* These kind of movements can give us alot of insight of how we move forward with different games. with packman moving just the position
+* with astroids maybe something along the lines of using an inhibitor.
+* and with cases with moving enemies, the free flowing velocity might come into play.
+* I wonder if I can get it moving in a circle???? probably have to do something with the math library and use sin(-) and cos(-)?
+* 
+*/
 void Game::UpdateModel()
 {
+    if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
+        // x = x + 100;
+        // x = x + 2;
+        // vx = vx + 1; move into inhibitor conditional
+        if (inhibitRight) {
+            // do nothing
+        }
+        else {
+            vx = vx + 1;
+            inhibitRight = true;
+        }
+    }
+    else {
+        inhibitRight = false;
+    }
+    if (wnd.kbd.KeyIsPressed(VK_LEFT)) {
+        // x = x - 100;
+        // x = x - 2;
+        //vx = vx - 1;
+        if (inhibitLeft) {
+            // do nothing
+        }
+        else {
+            vx = vx - 1;
+            inhibitLeft = true;
+        }
+    }
+    else {
+        inhibitLeft = false;
+    }
+    if (wnd.kbd.KeyIsPressed(VK_UP)) {
+        // y = y - 100;
+        // y = y - 2;
+        // vy = vy - 1;
+        if (inhibitUp) {
+            // do nothing
+        }
+        else {
+            vy = vy - 1;
+            inhibitUp = true;
+        }
+    }
+    else {
+        inhibitUp = false;
+    }
+    if (wnd.kbd.KeyIsPressed(VK_DOWN)) {
+        // y = y + 100;
+        // y = y + 2;
+        // vy = vy + 1;
+        if (inhibitDown) {
+            // do nothing
+        }
+        else {
+            vy = vy + 1;
+            inhibitDown = true;
+        }
+    }
+    else {
+        inhibitDown = false;
+    }
+
+    // without this shit dont move!
+    x = x + vx;
+    y = y + vy;
+
+    // these will bound the reticle inside the bounds of the screen
+    if (x - 5 <= 0) {
+        x = 5;
+        vx = 0;
+    }
+    if (x + 5 >= 800) {
+        x = 794;
+        vx = 0;
+    }
+    if (y - 5 < 0) {
+        y = 5;
+        vy = 0;
+    }
+    if (y + 5 >= 600) {
+        y = 594;
+        vy = 0;
+    }
+
+    // controls the change in color of the reticle
+    if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
+        gb = 0;
+    }
+    else {
+        gb = 255;
+    }
+
+    // changes the shape
+    shapeIsChanged = (wnd.kbd.KeyIsPressed(VK_SHIFT));
 }
 
 void Game::DrawCrosshair(int x, int y, int r, int g, int b)
@@ -5709,70 +5822,74 @@ void Game::DrawEmpty64by64(int x, int y) {
     gfx.PutPixel(x + 63, y + 63, 255, 255, 255);
 }
 
-/**
-* So the very first thing that we learn is that we have the power to control the pixels on the screen with PutPixel.
-* PutPixel is a method from the gfx class. We included the "Graphics.h" at the top that gives us the ability to use it.
-* The parameters are the x and y coordinates and the last 3 params are the rbg values that we get the color.
-* Easiest and most common way we will see PutPixels will be using variables x and y with operations to move. 
-* (This will be greatly improved in the future)
-*/
 void Game::ComposeFrame()
 {
-	int x = 400;
-	int y = 300;
-
-	// made some functions that use the keyboard output and change the drawn images
-	// The hope is to start drawing different images.
-
-    if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
-        x = x + 100;
-    }
-    if (wnd.kbd.KeyIsPressed(VK_LEFT)) {
-        x = x - 100;
-    }
-    if (wnd.kbd.KeyIsPressed(VK_UP)) {
-        y = y - 100;
-    }
-    if (wnd.kbd.KeyIsPressed(VK_DOWN)) {
-        y = y + 100;
-    }
-
-    int gb = 255;
-   
-    /**
-    * This conditional will be checking for if the shift key is being pressed or not, this is to determine shape
-    * The shape of the radical is more important than the color that the radical is
-    * so if shift is being pressed we will draw the box, if shift is not being pressed than the crosshair will be the shape of the radical
-    * this is the default shape.
-    * 
-    * My initial solution:
-    * Inside the shape then we have a nested conditional to check whether or not the control key is being pressed
-    * this is to determine the color of the radical.
-    * 
-    * Chilis solution:
-    * Since gb has an already declared value, and this is the value that we want to change when the control key is getting pressed
-    * simply change the value of gb, this is a MUCH better solution as you can see.
-    */
-    if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
-        gb = 0;
-    }
-
-    if (wnd.kbd.KeyIsPressed(VK_SHIFT)) {
+    if (shapeIsChanged) {
         DrawBox(x, y, 255, gb, gb);
-        // if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
-        //     DrawBox(x, y, 255, gb, gb);
-        // }
-        // else {
-        //     DrawBox(x, y, 255, 0, 0);
-        // }
     }
     else {
         DrawCrosshair(x, y, 255, gb, gb);
-        // if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
-        //     DrawCrosshair(x, y, 255, gb, gb);
-        // }
-        // else {
-        //     DrawCrosshair(x, y, 255, 0, 0);
-        // }
     }
 }
+
+/**
+* Video 1 stuff
+* So the very first thing that we learn is that we have the power to control the pixels on the screen with PutPixel.
+* PutPixel is a method from the gfx class. We included the "Graphics.h" at the top that gives us the ability to use it.
+* The parameters are the x and y coordinates and the last 3 params are the rbg values that we get the color.
+* Easiest and most common way we will see PutPixels will be using variables x and y with operations to move.
+* (This will be greatly improved in the future)
+*/
+
+/**
+* Video 2 stuff
+* See those x and y variables that are in the ComposeFrame? yeah thats what is preventing the movement to be smooth.
+* Its the scope of the variables of x and y!
+* Oh SHIT, this is the easiest shit! NOTE: 100 pixels per second is way to much, moved down to 2 pixels per second.
+* This is what animation is all about!
+*/
+
+/**
+* VIdeo 3 stuff
+* This conditional will be checking for if the shift key is being pressed or not, this is to determine shape
+* The shape of the radical is more important than the color that the radical is
+* so if shift is being pressed we will draw the box, if shift is not being pressed than the crosshair will be the shape of the radical
+* this is the default shape.
+*
+* My initial solution:
+* Inside the shape then we have a nested conditional to check whether or not the control key is being pressed
+* this is to determine the color of the radical.
+* 
+* if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
+*   DrawBox(x, y, 255, gb, gb);
+* }
+* else {
+*   DrawBox(x, y, 255, 0, 0);
+* }
+* 
+* if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
+*   DrawCrosshair(x, y, 255, gb, gb);
+* }
+* else {
+*   DrawCrosshair(x, y, 255, 0, 0);
+* }
+*
+* Chilis solution:
+* Since gb has an already declared value, and this is the value that we want to change when the control key is getting pressed
+* simply change the value of gb, this is a MUCH better solution as you can see.
+*/
+
+/**
+* Video 4 stuff
+* This shit goes inside the Game.h to become a member variable and not a instance variable.
+* int x = 400;
+* int y = 300;
+* made some functions that use the keyboard output and change the drawn images
+* The hope is to start drawing different images.
+* 
+* The game logic is anything that is not drawing anything to the screen.
+* This stuff goes in the UpdateModel function.
+* This is the spot where the game logic goes!
+* The logic is in update, the drawing code is in ComposeFrame!
+* Like MVC. The way everything should be done!
+*/

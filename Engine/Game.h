@@ -47,5 +47,15 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	int x = 400;
+	int y = 300;
+	int vx = 0;
+	int vy = 0;
+	int gb = 255;
+	bool shapeIsChanged = false; // used to be called ShiftIsPressed
+	bool inhibitUp = false; // checking to see if we have handled the keypress before?
+	bool inhibitDown = false;
+	bool inhibitLeft = false;
+	bool inhibitRight = false;
 	/********************************/
 };
