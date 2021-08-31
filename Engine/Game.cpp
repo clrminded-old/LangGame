@@ -41,56 +41,56 @@ void Game::UpdateModel()
 {
 }
 
-void Game::DrawCrosshair(int x, int y)
+void Game::DrawCrosshair(int x, int y, int r, int g, int b)
 {
 	// this places x and y to the center of the reticle
-	gfx.PutPixel(x - 5, y, 255, 255, 255);
-	gfx.PutPixel(x - 4, y, 255, 255, 255);
-	gfx.PutPixel(x - 3, y, 255, 255, 255);
-	gfx.PutPixel(x + 3, y, 255, 255, 255);
-	gfx.PutPixel(x + 4, y, 255, 255, 255);
-	gfx.PutPixel(x + 5, y, 255, 255, 255);
-	gfx.PutPixel(x, y - 5, 255, 255, 255);
-	gfx.PutPixel(x, y - 4, 255, 255, 255);
-	gfx.PutPixel(x, y - 3, 255, 255, 255);
-	gfx.PutPixel(x, y + 3, 255, 255, 255);
-	gfx.PutPixel(x, y + 4, 255, 255, 255);
-	gfx.PutPixel(x, y + 5, 255, 255, 255);
+	gfx.PutPixel(x - 5, y, r, g, b);
+	gfx.PutPixel(x - 4, y, r, g, b);
+	gfx.PutPixel(x - 3, y, r, g, b);
+	gfx.PutPixel(x + 3, y, r, g, b);
+	gfx.PutPixel(x + 4, y, r, g, b);
+	gfx.PutPixel(x + 5, y, r, g, b);
+	gfx.PutPixel(x, y - 5, r, g, b);
+	gfx.PutPixel(x, y - 4, r, g, b);
+	gfx.PutPixel(x, y - 3, r, g, b);
+	gfx.PutPixel(x, y + 3, r, g, b);
+	gfx.PutPixel(x, y + 4, r, g, b);
+	gfx.PutPixel(x, y + 5, r, g, b);
 }
 
-void Game::DrawBox(int x, int y)
+void Game::DrawBox(int x, int y, int r, int g, int b)
 {
 	// top
-	gfx.PutPixel(x, y, 255, 255, 255);
-	gfx.PutPixel(x + 1, y, 255, 255, 255);
-	gfx.PutPixel(x + 2, y, 255, 255, 255);
-	gfx.PutPixel(x + 6, y, 255, 255, 255);
-	gfx.PutPixel(x + 7, y, 255, 255, 255);
-	gfx.PutPixel(x + 8, y, 255, 255, 255);
+	gfx.PutPixel(x, y, r, g, b);
+	gfx.PutPixel(x + 1, y, r, g, b);
+	gfx.PutPixel(x + 2, y, r, g, b);
+	gfx.PutPixel(x + 6, y, r, g, b);
+	gfx.PutPixel(x + 7, y, r, g, b);
+	gfx.PutPixel(x + 8, y, r, g, b);
 
 	// right
-	gfx.PutPixel(x + 8, y, 255, 255, 255);
-	gfx.PutPixel(x + 8, y + 1, 255, 255, 255);
-	gfx.PutPixel(x + 8, y + 2, 255, 255, 255);
-	gfx.PutPixel(x + 8, y + 6, 255, 255, 255);
-	gfx.PutPixel(x + 8, y + 7, 255, 255, 255);
-	gfx.PutPixel(x + 8, y + 8, 255, 255, 255);
+	gfx.PutPixel(x + 8, y, r, g, b);
+	gfx.PutPixel(x + 8, y + 1, r, g, b);
+	gfx.PutPixel(x + 8, y + 2, r, g, b);
+	gfx.PutPixel(x + 8, y + 6, r, g, b);
+	gfx.PutPixel(x + 8, y + 7, r, g, b);
+	gfx.PutPixel(x + 8, y + 8, r, g, b);
 
 	// bottom
-	gfx.PutPixel(x, y + 8, 255, 255, 255);
-	gfx.PutPixel(x + 1, y + 8, 255, 255, 255);
-	gfx.PutPixel(x + 2, y + 8, 255, 255, 255);
-	gfx.PutPixel(x + 6, y + 8, 255, 255, 255);
-	gfx.PutPixel(x + 7, y + 8, 255, 255, 255);
-	gfx.PutPixel(x + 8, y + 8, 255, 255, 255);
+	gfx.PutPixel(x, y + 8, r, g, b);
+	gfx.PutPixel(x + 1, y + 8, r, g, b);
+	gfx.PutPixel(x + 2, y + 8, r, g, b);
+	gfx.PutPixel(x + 6, y + 8, r, g, b);
+	gfx.PutPixel(x + 7, y + 8, r, g, b);
+	gfx.PutPixel(x + 8, y + 8, r, g, b);
 
 	// left
-	gfx.PutPixel(x, y, 255, 255, 255);
-	gfx.PutPixel(x, y + 1, 255, 255, 255);
-	gfx.PutPixel(x, y + 2, 255, 255, 255);
-	gfx.PutPixel(x, y + 6, 255, 255, 255);
-	gfx.PutPixel(x, y + 7, 255, 255, 255);
-	gfx.PutPixel(x, y + 8, 255, 255, 255);
+	gfx.PutPixel(x, y, r, g, b);
+	gfx.PutPixel(x, y + 1, r, g, b);
+	gfx.PutPixel(x, y + 2, r, g, b);
+	gfx.PutPixel(x, y + 6, r, g, b);
+	gfx.PutPixel(x, y + 7, r, g, b);
+	gfx.PutPixel(x, y + 8, r, g, b);
 
 }
 
@@ -5718,20 +5718,61 @@ void Game::DrawEmpty64by64(int x, int y) {
 */
 void Game::ComposeFrame()
 {
-	const int x = 400;
-	const int y = 100;
+	int x = 400;
+	int y = 300;
 
 	// made some functions that use the keyboard output and change the drawn images
 	// The hope is to start drawing different images.
 
-	if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
-		DrawEmpty64by64(x, y);
-	} 
-	else {
-		DrawBox(x, y);
-	}
-	
-	
+    if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
+        x = x + 100;
+    }
+    if (wnd.kbd.KeyIsPressed(VK_LEFT)) {
+        x = x - 100;
+    }
+    if (wnd.kbd.KeyIsPressed(VK_UP)) {
+        y = y - 100;
+    }
+    if (wnd.kbd.KeyIsPressed(VK_DOWN)) {
+        y = y + 100;
+    }
 
+    int gb = 255;
+   
+    /**
+    * This conditional will be checking for if the shift key is being pressed or not, this is to determine shape
+    * The shape of the radical is more important than the color that the radical is
+    * so if shift is being pressed we will draw the box, if shift is not being pressed than the crosshair will be the shape of the radical
+    * this is the default shape.
+    * 
+    * My initial solution:
+    * Inside the shape then we have a nested conditional to check whether or not the control key is being pressed
+    * this is to determine the color of the radical.
+    * 
+    * Chilis solution:
+    * Since gb has an already declared value, and this is the value that we want to change when the control key is getting pressed
+    * simply change the value of gb, this is a MUCH better solution as you can see.
+    */
+    if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
+        gb = 0;
+    }
 
+    if (wnd.kbd.KeyIsPressed(VK_SHIFT)) {
+        DrawBox(x, y, 255, gb, gb);
+        // if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
+        //     DrawBox(x, y, 255, gb, gb);
+        // }
+        // else {
+        //     DrawBox(x, y, 255, 0, 0);
+        // }
+    }
+    else {
+        DrawCrosshair(x, y, 255, gb, gb);
+        // if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
+        //     DrawCrosshair(x, y, 255, gb, gb);
+        // }
+        // else {
+        //     DrawCrosshair(x, y, 255, 0, 0);
+        // }
+    }
 }
