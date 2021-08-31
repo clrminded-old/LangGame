@@ -37,8 +37,8 @@ private:
 	/********************************/
 	/*  User Functions              */
 	/********************************/
-	void DrawCrosshair(int x, int y);
-	void DrawBox(int x, int y);
+	void DrawCrosshair(int x, int y, int r, int g, int b);
+	void DrawBox(int x, int y, int r, int g, int b);
 	void DrawEmpty16by16(int x, int y);
 	void DrawEmpty32by32(int x, int y);
 	void DrawEmpty64by64(int x, int y);
