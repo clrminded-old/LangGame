@@ -154,15 +154,38 @@ void Game::UpdateModel()
     }
 
     // controls the change in color of the reticle
-    if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
+    if (controlIsPressed) {
         gb = 0;
     }
     else {
         gb = 255;
     }
 
+    // these are just the values that are hardcoded that need to be simplified into functions
+    const int fixed_left = 300;
+    const int fixed_right = 308;
+    const int fixed_top = 300;
+    const int fixed_bottom = 308;
+
+    const int mobile_left = x;
+    const int mobile_right = x + 8;
+    const int mobile_top = y;
+    const int mobile_bottom = y + 8;
+
+   
+  
+    // changes the color
+    controlIsPressed = (wnd.kbd.KeyIsPressed(VK_CONTROL));
     // changes the shape
     shapeIsChanged = (wnd.kbd.KeyIsPressed(VK_SHIFT));
+
+    // This is the conditions if the boxes are colliding
+    if (mobile_left < fixed_right && mobile_right > fixed_left && mobile_bottom > fixed_top && mobile_top < fixed_bottom) {
+        controlIsPressed = true;
+    }
+    else {
+        controlIsPressed = false;
+    }
 }
 
 void Game::DrawCrosshair(int x, int y, int r, int g, int b)
@@ -188,44 +211,42 @@ void Game::DrawBox(int x, int y, int r, int g, int b)
 	gfx.PutPixel(x, y, r, g, b);
 	gfx.PutPixel(x + 1, y, r, g, b);
 	gfx.PutPixel(x + 2, y, r, g, b);
+	gfx.PutPixel(x + 5, y, r, g, b);
 	gfx.PutPixel(x + 6, y, r, g, b);
 	gfx.PutPixel(x + 7, y, r, g, b);
-	gfx.PutPixel(x + 8, y, r, g, b);
 
 	// right
-	gfx.PutPixel(x + 8, y, r, g, b);
-	gfx.PutPixel(x + 8, y + 1, r, g, b);
-	gfx.PutPixel(x + 8, y + 2, r, g, b);
-	gfx.PutPixel(x + 8, y + 6, r, g, b);
-	gfx.PutPixel(x + 8, y + 7, r, g, b);
-	gfx.PutPixel(x + 8, y + 8, r, g, b);
+	gfx.PutPixel(x + 7, y, r, g, b);
+	gfx.PutPixel(x + 7, y + 1, r, g, b);
+	gfx.PutPixel(x + 7, y + 2, r, g, b);
+	gfx.PutPixel(x + 7, y + 5, r, g, b);
+	gfx.PutPixel(x + 7, y + 6, r, g, b);
+	gfx.PutPixel(x + 7, y + 7, r, g, b);
 
 	// bottom
-	gfx.PutPixel(x, y + 8, r, g, b);
-	gfx.PutPixel(x + 1, y + 8, r, g, b);
-	gfx.PutPixel(x + 2, y + 8, r, g, b);
-	gfx.PutPixel(x + 6, y + 8, r, g, b);
-	gfx.PutPixel(x + 7, y + 8, r, g, b);
-	gfx.PutPixel(x + 8, y + 8, r, g, b);
+	gfx.PutPixel(x, y + 7, r, g, b);
+	gfx.PutPixel(x + 1, y + 7, r, g, b);
+	gfx.PutPixel(x + 2, y + 7, r, g, b);
+	gfx.PutPixel(x + 5, y + 7, r, g, b);
+	gfx.PutPixel(x + 6, y + 7, r, g, b);
+	gfx.PutPixel(x + 7, y + 7, r, g, b);
 
 	// left
 	gfx.PutPixel(x, y, r, g, b);
 	gfx.PutPixel(x, y + 1, r, g, b);
 	gfx.PutPixel(x, y + 2, r, g, b);
+	gfx.PutPixel(x, y + 5, r, g, b);
 	gfx.PutPixel(x, y + 6, r, g, b);
 	gfx.PutPixel(x, y + 7, r, g, b);
-	gfx.PutPixel(x, y + 8, r, g, b);
 
 }
 
+
 void Game::ComposeFrame()
 {
-    if (x > 100 && x < 200) {
-        DrawCrosshair(x, y, 255, 255, 255);
-    }
-    else {
-        DrawBox(x, y, 255, 255, 255);
-    }
+    DrawBox(300, 300, 255, 255, 255);
+    DrawBox(x, y, 255, gb, gb);
+   
     
 }
 

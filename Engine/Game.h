@@ -38,10 +38,8 @@ private:
 	/*  User Functions              */
 	void DrawCrosshair(int x, int y, int r, int g, int b);
 	void DrawBox(int x, int y, int r, int g, int b);
-
-	/********************************/
 	
-
+	/********************************/
 private:
 	MainWindow& wnd;
 	Graphics gfx;
@@ -51,11 +49,9 @@ private:
 	int y = 300;
 	int vx = 0;
 	int vy = 0;
-	int fixedBox0X = 100;
-	int fixedBox0Y = 100;
-
 
 	int gb = 255;
+	bool controlIsPressed = false;
 	bool shapeIsChanged = false; // used to be called ShiftIsPressed
 	bool inhibitUp = false; // checking to see if we have handled the keypress before?
 	bool inhibitDown = false;
