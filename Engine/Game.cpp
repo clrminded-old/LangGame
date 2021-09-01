@@ -154,13 +154,15 @@ void Game::UpdateModel()
     }
 
     // controls the change in color of the reticle
-    if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
+    if (controlIsPressed) {
         gb = 0;
     }
     else {
         gb = 255;
     }
-
+  
+    // changes the color
+    controlIsPressed = (wnd.kbd.KeyIsPressed(VK_CONTROL));
     // changes the shape
     shapeIsChanged = (wnd.kbd.KeyIsPressed(VK_SHIFT));
 }
@@ -218,14 +220,21 @@ void Game::DrawBox(int x, int y, int r, int g, int b)
 
 }
 
+void Game::TestCollision(int mobileX, int mobileY, int fixedX, int fixedY)
+{
+    const int fixedRight = fixedX + 9;
+    const int mobileRight = mobileX + 9;
+    if (mobileX < fixedRight && mobileX > fixedX) {
+        controlIsPressed;
+    }
+   
+}
+
 void Game::ComposeFrame()
 {
-    if (x > 100 && x < 200) {
-        DrawCrosshair(x, y, 255, 255, 255);
-    }
-    else {
-        DrawBox(x, y, 255, 255, 255);
-    }
+    DrawBox(300, 300, 255, 255, 255);
+    DrawBox(x, y, 255, gb, gb);
+    TestCollision(x, y, 300, 300);
     
 }
 
