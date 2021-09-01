@@ -38,7 +38,7 @@ private:
 	/*  User Functions              */
 	void DrawCrosshair(int x, int y, int r, int g, int b);
 	void DrawBox(int x, int y, int r, int g, int b);
-	void TestCollision(int mobileX, int mobileY, int fixedX, int fixedY);
+	
 	/********************************/
 private:
 	MainWindow& wnd;
