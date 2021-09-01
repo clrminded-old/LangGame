@@ -38,7 +38,7 @@ private:
 	/*  User Functions              */
 	void DrawCrosshair(int x, int y, int r, int g, int b);
 	void DrawBox(int x, int y, int r, int g, int b);
-	
+	bool overlapTest(int x0, int y0, int x1, int y1);
 	/********************************/
 private:
 	MainWindow& wnd;
