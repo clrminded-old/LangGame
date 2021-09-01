@@ -161,16 +161,7 @@ void Game::UpdateModel()
         gb = 255;
     }
 
-    // these are just the values that are hardcoded that need to be simplified into functions
-    const int fixed_left = 300;
-    const int fixed_right = 308;
-    const int fixed_top = 300;
-    const int fixed_bottom = 308;
-
-    const int mobile_left = x;
-    const int mobile_right = x + 8;
-    const int mobile_top = y;
-    const int mobile_bottom = y + 8;
+    
 
    
   
@@ -180,7 +171,7 @@ void Game::UpdateModel()
     shapeIsChanged = (wnd.kbd.KeyIsPressed(VK_SHIFT));
 
     // This is the conditions if the boxes are colliding
-    if (mobile_left < fixed_right && mobile_right > fixed_left && mobile_bottom > fixed_top && mobile_top < fixed_bottom) {
+    if (overlapTest(x, y, 300, 300)) {
         controlIsPressed = true;
     }
     else {
@@ -241,12 +232,32 @@ void Game::DrawBox(int x, int y, int r, int g, int b)
 
 }
 
+bool Game::overlapTest(int box0x, int box0y, int box1x, int box1y)
+{
+    const int left_box0 = box0x;
+    const int right_box0 = box0x + 8;
+    const int top_box0 = box0y;
+    const int bottom_box0 = box0y + 8;
+
+    const int left_box1 = box1x;
+    const int right_box1 = box1x + 8;
+    const int top_box1 = box1y;
+    const int bottom_box1 = box1y + 8;
+
+    return left_box1 < right_box0 &&
+        right_box1 > left_box0 &&
+        bottom_box1 > top_box0 &&
+        top_box1 < bottom_box0;
+}
+
+
+
+
 
 void Game::ComposeFrame()
 {
     DrawBox(300, 300, 255, 255, 255);
     DrawBox(x, y, 255, gb, gb);
-   
     
 }
 
