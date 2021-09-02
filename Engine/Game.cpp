@@ -35,16 +35,26 @@ Game::Game( MainWindow& wnd )
     std::uniform_int_distribution<int> xDist(0, 770); // the random x values between 0 and 770 (account for width w/o going off screen)
     std::uniform_int_distribution<int> yDist(0, 570); // the random y values between 0 and 570 (account for the height w/o going off screen)
 
+    // setting the random positions
     box0.x = xDist(rng);
     box0.y = yDist(rng);
-
     box1.x = xDist(rng);
     box1.y = yDist(rng);
-
     box2.x = xDist(rng);
     box2.y = yDist(rng);
 
+    // setting the initial velocities for the boxes
+    // right-down
+    box0.vx = 1;
+    box0.vy = 1;
+    // left-down
+    box1.vx = -1;
+    box1.vy = 1;
+    // left-up
+    box2.vx = -1;
+    box2.vy = -1;
 
+    // myBox is the one that I control the movement of
     myBox.x = 400;
     myBox.y = 300;
 }
@@ -64,6 +74,8 @@ void Game::Go()
 */
 void Game::UpdateModel()
 {
+    
+
     if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
         myBox.x = myBox.x + 2;
     }
@@ -81,8 +93,9 @@ void Game::UpdateModel()
     }
 
     // these will bound the reticle inside the bounds of the screen
-    myBox.x = ClampScreenX(myBox.x, myBox.width);
-    myBox.y = ClampScreenY(myBox.y, myBox.height);
+    //myBox.x = ClampScreenX(myBox.x, myBox.width);
+    //myBox.y = ClampScreenY(myBox.y, myBox.height);
+    myBox.ClampToScreen();
 
     box0.x += box0.vx;
     box0.y += box0.vy;
@@ -91,6 +104,7 @@ void Game::UpdateModel()
     box2.x += box2.vx;
     box2.y += box2.vy;
 
+    // stub
     {
         const int box0Xold = box0.x;
         const int box0Yold = box0.y;
@@ -105,7 +119,7 @@ void Game::UpdateModel()
             box0.vy = -box0.vy;
         }
     }
-
+    // stub
     {
         const int box1Xold = box1.x;
         const int box1Yold = box1.y;
@@ -120,7 +134,7 @@ void Game::UpdateModel()
             box1.vy = -box1.vy;
         }
     }
-
+    // stub
     {
         const int box2Xold = box2.x;
         const int box2Yold = box2.y;
@@ -135,6 +149,16 @@ void Game::UpdateModel()
             box2.vy = -box2.vy;
         }
     }
+
+    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box0.x, box0.y, box0.width, box0.height)) {
+        isEaten = true;
+    }
+    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box1.x, box1.y, box1.width, box1.height)) {
+        isEaten = true;
+    }
+    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box2.x, box2.y, box2.width, box2.height)) {
+        isEaten = true;
+    }
 }
 
 bool Game::IsColliding(int x0, int y0, int width0, int height0, int x1, int y1, int width1, int height1)
@@ -143,6 +167,7 @@ bool Game::IsColliding(int x0, int y0, int width0, int height0, int x1, int y1, 
     const int bottom0 = y0 + height0;
     const int right1 = x1 + width1;
     const int bottom1 = y1 + height1;
+
     return right0 >= x1 && 
         x0 <= right1 &&
         bottom0 >= y1 &&
@@ -174,14 +199,17 @@ int Game::ClampScreenY(int y, int height) {
 
 void Game::ComposeFrame()
 {
+    
+
     if (isEaten) {
     }
     else {
         box0.DrawBox(gfx);
+        box1.DrawBox(gfx);
+        box2.DrawBox(gfx);
     }
     myBox.DrawBox(gfx);
-    box1.DrawBox(gfx);
-    box2.DrawBox(gfx);
+    
 }
 
 /**

@@ -24,6 +24,7 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Box.h"
+#include "Actor.h"
 
 class Game
 {
@@ -48,14 +49,11 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	// myBox is the one that I control the movement of
 	Box box0;
 	Box box1;
 	Box box2;
-	Box myBox;
-
-	
-	int vx = 0;
-	int vy = 0;
+	Actor myBox;
 
 	bool isEaten = false;
 	/********************************/

@@ -1,32 +1,8 @@
-#include "Box.h"
+#include "Actor.h"
+#include "Graphics.h"
 
-// Equivilent to ClampScreen
-void Box::Update() {
-	x += vx;
-	y += vy;
-
-	const int right = x + width;
-	if (x < 0) {
-		x = 0;
-		vx = -vx;
-	}
-	else if (right >= Graphics::ScreenWidth) {
-		x = (Graphics::ScreenWidth - 1) - width;
-		vx = -vx;
-	}
-	
-	const int bottom = y + height;
-	if (y < 0) {
-		y = 0;
-		vy = -vy;
-	} 
-	else if (bottom >= Graphics::ScreenHeight) {
-		y = (Graphics::ScreenHeight - 1) - height;
-		vy = -vy;
-	}
-}
-
-void Box::DrawBox(Graphics& gfx) {
+void Actor::DrawBox(Graphics& gfx)
+{
 	// top
 	gfx.PutPixel(x, y, 255, 255, 255);
 	gfx.PutPixel(x + 1, y, 255, 255, 255);
@@ -58,4 +34,22 @@ void Box::DrawBox(Graphics& gfx) {
 	gfx.PutPixel(x, y + 5, 255, 255, 255);
 	gfx.PutPixel(x, y + 6, 255, 255, 255);
 	gfx.PutPixel(x, y + 7, 255, 255, 255);
+}
+
+void Actor::ClampToScreen()
+{
+    const int right = x + width;
+    if (x < 0) {
+        x = 0;
+    }
+    else if (right >= Graphics::ScreenWidth) {
+        x =  Graphics::ScreenWidth - width;
+    }
+    const int bottom = y + height;
+    if (y < 0) {
+        y = 0;
+    }
+    else if (bottom >= Graphics::ScreenHeight) {
+        y =  Graphics::ScreenHeight - height;
+    }
 }
