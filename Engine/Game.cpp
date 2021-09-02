@@ -21,12 +21,42 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include "Graphics.h"
+#include "Box.h"
+#include <random>
 
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd )
 {
+    // random_device -> random number generator -> uniform_int_distribution for x and y values with ranges.
+    std::random_device rd; // seed with a different value each time
+    std::mt19937 rng( rd() ); // random number generator
+    std::uniform_int_distribution<int> xDist(0, 770); // the random x values between 0 and 770 (account for width w/o going off screen)
+    std::uniform_int_distribution<int> yDist(0, 570); // the random y values between 0 and 570 (account for the height w/o going off screen)
+
+    // setting the random positions
+    box0.x = xDist(rng);
+    box0.y = yDist(rng);
+    box1.x = xDist(rng);
+    box1.y = yDist(rng);
+    box2.x = xDist(rng);
+    box2.y = yDist(rng);
+
+    // setting the initial velocities for the boxes
+    // right-down
+    box0.vx = 1;
+    box0.vy = 1;
+    // left-down
+    box1.vx = -1;
+    box1.vy = 1;
+    // left-up
+    box2.vx = -1;
+    box2.vy = -1;
+
+    // myBox is the one that I control the movement of
+    myBox.x = 400;
+    myBox.y = 300;
 }
 
 void Game::Go()
@@ -41,223 +71,144 @@ void Game::Go()
 * This is the spot where the game logic goes!
 * The logic is in update, the drawing code is in ComposeFrame!
 * Like MVC. The way everything should be done!
-* 
-* Main takeaway:
-* If we put functions and variables inside the scope of the function, it can not be "remembered"
-* The way to be remembered is put that stuff in the header and make it a member variable instead.
-* 
-* Velocity vs Position
-* Easy shit to know what the difference is. 
-* Now we have 3 solid ways of moving around a cursor.... we can left the code freely move it with velocity...
-* we can inhibit the controls of the movement to control how it moved based on whether the key is held down or not...
-* or we can just simply move the position and not deal with velocity. Alot of newly found power.
-* These kind of movements can give us alot of insight of how we move forward with different games. with packman moving just the position
-* with astroids maybe something along the lines of using an inhibitor.
-* and with cases with moving enemies, the free flowing velocity might come into play.
-* I wonder if I can get it moving in a circle???? probably have to do something with the math library and use sin(-) and cos(-)?
-* 
 */
 void Game::UpdateModel()
 {
-    if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
-        // x = x + 100;
-        // x = x + 2;
-        // vx = vx + 1; move into inhibitor conditional
-        if (inhibitRight) {
-            // do nothing
-        }
-        else {
-            vx = vx + 1;
-            inhibitRight = true;
-        }
-    }
-    else {
-        inhibitRight = false;
-    }
-    if (wnd.kbd.KeyIsPressed(VK_LEFT)) {
-        // x = x - 100;
-        // x = x - 2;
-        //vx = vx - 1;
-        if (inhibitLeft) {
-            // do nothing
-        }
-        else {
-            vx = vx - 1;
-            inhibitLeft = true;
-        }
-    }
-    else {
-        inhibitLeft = false;
-    }
-    if (wnd.kbd.KeyIsPressed(VK_UP)) {
-        // y = y - 100;
-        // y = y - 2;
-        // vy = vy - 1;
-        if (inhibitUp) {
-            // do nothing
-        }
-        else {
-            vy = vy - 1;
-            inhibitUp = true;
-        }
-    }
-    else {
-        inhibitUp = false;
-    }
-    if (wnd.kbd.KeyIsPressed(VK_DOWN)) {
-        // y = y + 100;
-        // y = y + 2;
-        // vy = vy + 1;
-        if (inhibitDown) {
-            // do nothing
-        }
-        else {
-            vy = vy + 1;
-            inhibitDown = true;
-        }
-    }
-    else {
-        inhibitDown = false;
-    }
-
-    // without this shit dont move!
-    x = x + vx;
-    y = y + vy;
-
-    // these will bound the reticle inside the bounds of the screen
-    if (x <= 0) {
-        x = 0;
-        vx = 0;
-    }
-    // You can do this...
-    //if (x + 5 >= 800) {
-    //    x = 794;
-    //    vx = 0;
-    //}
-    // But a much more sexier way is like this
-    if (x + 9 >= gfx.ScreenWidth) {
-        x = gfx.ScreenWidth - 9 - 1;
-        vx = 0;
-    }
-    if (y < 0) {
-        y = 0;
-        vy = 0;
-    }
-    // Same sexiness here...
-    // if (y + 5 >= 600) {
-    //     y = 594;
-    //     vy = 0;
-    // }
-    if (y + 9 >= gfx.ScreenHeight) {
-        y = gfx.ScreenHeight - 9 - 1;
-        vy = 0;
-    }
-
-    // controls the change in color of the reticle
-    if (controlIsPressed) {
-        gb = 0;
-    }
-    else {
-        gb = 255;
-    }
-
     
 
+    if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
+        myBox.x = myBox.x + 2;
+    }
+    
+    if (wnd.kbd.KeyIsPressed(VK_LEFT)) {
+       myBox.x = myBox.x - 2;
+    }
+    
+    if (wnd.kbd.KeyIsPressed(VK_UP)) {
+        myBox.y = myBox.y - 2;
+    }
    
-  
-    // changes the color
-    controlIsPressed = (wnd.kbd.KeyIsPressed(VK_CONTROL));
-    // changes the shape
-    shapeIsChanged = (wnd.kbd.KeyIsPressed(VK_SHIFT));
-
-    // This is the conditions if the boxes are colliding
-    if (overlapTest(x, y, 300, 300)) {
-        controlIsPressed = true;
+    if (wnd.kbd.KeyIsPressed(VK_DOWN)) {
+        myBox.y = myBox.y + 2;
     }
-    else {
-        controlIsPressed = false;
+
+    // these will bound the reticle inside the bounds of the screen
+    //myBox.x = ClampScreenX(myBox.x, myBox.width);
+    //myBox.y = ClampScreenY(myBox.y, myBox.height);
+    myBox.ClampToScreen();
+
+    box0.x += box0.vx;
+    box0.y += box0.vy;
+    box1.x += box1.vx;
+    box1.y += box1.vy;
+    box2.x += box2.vx;
+    box2.y += box2.vy;
+
+    // stub
+    {
+        const int box0Xold = box0.x;
+        const int box0Yold = box0.y;
+
+        box0.x = ClampScreenX(box0.x, box0.width);
+        if (box0.x != box0Xold) {
+            box0.vx = -box0.vx;
+        }
+
+        box0.y = ClampScreenY(box0.y, box0.height);
+        if (box0.y != box0Yold) {
+            box0.vy = -box0.vy;
+        }
+    }
+    // stub
+    {
+        const int box1Xold = box1.x;
+        const int box1Yold = box1.y;
+
+        box1.x = ClampScreenX(box1.x, box1.width);
+        if (box1.x != box1Xold) {
+            box1.vx = -box1.vx;
+        }
+
+        box1.y = ClampScreenY(box1.y, box1.height);
+        if (box1.y != box1Yold) {
+            box1.vy = -box1.vy;
+        }
+    }
+    // stub
+    {
+        const int box2Xold = box2.x;
+        const int box2Yold = box2.y;
+
+        box2.x = ClampScreenX(box2.x, box2.width);
+        if (box2.x != box2Xold) {
+            box2.vx = -box2.vx;
+        }
+
+        box2.y = ClampScreenY(box2.y, box2.height);
+        if (box2.y != box2Yold) {
+            box2.vy = -box2.vy;
+        }
+    }
+
+    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box0.x, box0.y, box0.width, box0.height)) {
+        isEaten = true;
+    }
+    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box1.x, box1.y, box1.width, box1.height)) {
+        isEaten = true;
+    }
+    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box2.x, box2.y, box2.width, box2.height)) {
+        isEaten = true;
     }
 }
 
-void Game::DrawCrosshair(int x, int y, int r, int g, int b)
+bool Game::IsColliding(int x0, int y0, int width0, int height0, int x1, int y1, int width1, int height1)
 {
-	// this places x and y to the center of the reticle
-	gfx.PutPixel(x - 5, y, r, g, b);
-	gfx.PutPixel(x - 4, y, r, g, b);
-	gfx.PutPixel(x - 3, y, r, g, b);
-	gfx.PutPixel(x + 3, y, r, g, b);
-	gfx.PutPixel(x + 4, y, r, g, b);
-	gfx.PutPixel(x + 5, y, r, g, b);
-	gfx.PutPixel(x, y - 5, r, g, b);
-	gfx.PutPixel(x, y - 4, r, g, b);
-	gfx.PutPixel(x, y - 3, r, g, b);
-	gfx.PutPixel(x, y + 3, r, g, b);
-	gfx.PutPixel(x, y + 4, r, g, b);
-	gfx.PutPixel(x, y + 5, r, g, b);
+    const int right0 = x0 + width0;
+    const int bottom0 = y0 + height0;
+    const int right1 = x1 + width1;
+    const int bottom1 = y1 + height1;
+
+    return right0 >= x1 && 
+        x0 <= right1 &&
+        bottom0 >= y1 &&
+        y0 <= bottom1;
 }
 
-void Game::DrawBox(int x, int y, int r, int g, int b)
-{
-	// top
-	gfx.PutPixel(x, y, r, g, b);
-	gfx.PutPixel(x + 1, y, r, g, b);
-	gfx.PutPixel(x + 2, y, r, g, b);
-	gfx.PutPixel(x + 5, y, r, g, b);
-	gfx.PutPixel(x + 6, y, r, g, b);
-	gfx.PutPixel(x + 7, y, r, g, b);
-
-	// right
-	gfx.PutPixel(x + 7, y, r, g, b);
-	gfx.PutPixel(x + 7, y + 1, r, g, b);
-	gfx.PutPixel(x + 7, y + 2, r, g, b);
-	gfx.PutPixel(x + 7, y + 5, r, g, b);
-	gfx.PutPixel(x + 7, y + 6, r, g, b);
-	gfx.PutPixel(x + 7, y + 7, r, g, b);
-
-	// bottom
-	gfx.PutPixel(x, y + 7, r, g, b);
-	gfx.PutPixel(x + 1, y + 7, r, g, b);
-	gfx.PutPixel(x + 2, y + 7, r, g, b);
-	gfx.PutPixel(x + 5, y + 7, r, g, b);
-	gfx.PutPixel(x + 6, y + 7, r, g, b);
-	gfx.PutPixel(x + 7, y + 7, r, g, b);
-
-	// left
-	gfx.PutPixel(x, y, r, g, b);
-	gfx.PutPixel(x, y + 1, r, g, b);
-	gfx.PutPixel(x, y + 2, r, g, b);
-	gfx.PutPixel(x, y + 5, r, g, b);
-	gfx.PutPixel(x, y + 6, r, g, b);
-	gfx.PutPixel(x, y + 7, r, g, b);
-
+int Game::ClampScreenX(int x, int width) {
+    const int right = x + width;
+    if (x < 0) {
+        return 0;
+    }
+    else if (right >= gfx.ScreenWidth) {
+        return (gfx.ScreenWidth - 1) - width;
+    }
+    return x;
+    
 }
 
-bool Game::overlapTest(int box0x, int box0y, int box1x, int box1y)
-{
-    const int left_box0 = box0x;
-    const int right_box0 = box0x + 8;
-    const int top_box0 = box0y;
-    const int bottom_box0 = box0y + 8;
-
-    const int left_box1 = box1x;
-    const int right_box1 = box1x + 8;
-    const int top_box1 = box1y;
-    const int bottom_box1 = box1y + 8;
-
-    return left_box1 < right_box0 &&
-        right_box1 > left_box0 &&
-        bottom_box1 > top_box0 &&
-        top_box1 < bottom_box0;
+int Game::ClampScreenY(int y, int height) {
+    const int bottom = y + height;
+    if (y < 0) {
+        return 0;
+    }
+    else if (bottom >= gfx.ScreenHeight) {
+        return (gfx.ScreenHeight - 1) - height;
+    }
+    return y;
 }
-
-
-
-
 
 void Game::ComposeFrame()
 {
-    DrawBox(300, 300, 255, 255, 255);
-    DrawBox(x, y, 255, gb, gb);
+    
+
+    if (isEaten) {
+    }
+    else {
+        box0.DrawBox(gfx);
+        box1.DrawBox(gfx);
+        box2.DrawBox(gfx);
+    }
+    myBox.DrawBox(gfx);
     
 }
 
@@ -321,4 +272,44 @@ void Game::ComposeFrame()
 * This is the spot where the game logic goes!
 * The logic is in update, the drawing code is in ComposeFrame!
 * Like MVC. The way everything should be done!
+*/
+
+/* moving with constant speed and increasing per key press
+* you just have to do this with all the VK_LEFT, RIGHT, UP, DOWN
+if (wnd.kbd.KeyIsPressed(VK_DOWN)) {
+        // y = y + 100;
+        // y = y + 2;
+        // vy = vy + 1;
+        if (inhibitDown) {
+            // do nothing
+        }
+        else {
+            vy = vy + 1;
+            inhibitDown = true;
+        }
+    }
+    else {
+        inhibitDown = false;
+    }
+*/
+
+// without this shit dont move!
+// x = x + vx;
+// y = y + vy;
+
+/*
+* Main takeaway:
+* If we put functions and variables inside the scope of the function, it can not be "remembered"
+* The way to be remembered is put that stuff in the header and make it a member variable instead.
+*
+* Velocity vs Position
+* Easy shit to know what the difference is.
+* Now we have 3 solid ways of moving around a cursor.... we can left the code freely move it with velocity...
+* we can inhibit the controls of the movement to control how it moved based on whether the key is held down or not...
+* or we can just simply move the position and not deal with velocity. Alot of newly found power.
+* These kind of movements can give us alot of insight of how we move forward with different games. with packman moving just the position
+* with astroids maybe something along the lines of using an inhibitor.
+* and with cases with moving enemies, the free flowing velocity might come into play.
+* I wonder if I can get it moving in a circle???? probably have to do something with the math library and use sin(-) and cos(-)?
+*
 */

@@ -23,6 +23,8 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Box.h"
+#include "Actor.h"
 
 class Game
 {
@@ -31,31 +33,28 @@ public:
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
+	
 private:
 	void ComposeFrame();
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
-	void DrawCrosshair(int x, int y, int r, int g, int b);
-	void DrawBox(int x, int y, int r, int g, int b);
-	bool overlapTest(int x0, int y0, int x1, int y1);
+	
+	bool IsColliding(int x0, int y0, int width0, int height0, int x1, int y1, int width1, int height1);
+	int ClampScreenX(int x, int width);
+	int ClampScreenY(int y, int height);
 	/********************************/
 private:
 	MainWindow& wnd;
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	int x = 400;
-	int y = 300;
-	int vx = 0;
-	int vy = 0;
+	// myBox is the one that I control the movement of
+	Box box0;
+	Box box1;
+	Box box2;
+	Actor myBox;
 
-	int gb = 255;
-	bool controlIsPressed = false;
-	bool shapeIsChanged = false; // used to be called ShiftIsPressed
-	bool inhibitUp = false; // checking to see if we have handled the keypress before?
-	bool inhibitDown = false;
-	bool inhibitLeft = false;
-	bool inhibitRight = false;
+	bool isEaten = false;
 	/********************************/
 };
