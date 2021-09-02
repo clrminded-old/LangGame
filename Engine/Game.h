@@ -39,8 +39,7 @@ private:
 	/********************************/
 	/*  User Functions              */
 	
-	bool overlapTest(int x0, int y0, int x1, int y1);
-
+	bool IsColliding(int x0, int y0, int width0, int height0, int x1, int y1, int width1, int height1);
 	int ClampScreenX(int x, int width);
 	int ClampScreenY(int y, int height);
 	/********************************/
@@ -50,18 +49,14 @@ private:
 	/********************************/
 	/*  User Variables              */
 	Box box0;
+	Box box1;
+	Box box2;
 	Box myBox;
 
+	
 	int vx = 0;
 	int vy = 0;
 
-	int gb = 255;
-	bool controlIsPressed = false;
-	bool shapeIsChanged = false; // used to be called ShiftIsPressed
-	bool inhibitUp = false; // checking to see if we have handled the keypress before?
-	bool inhibitDown = false;
-	bool inhibitLeft = false;
-	bool inhibitRight = false;
 	bool isEaten = false;
 	/********************************/
 };

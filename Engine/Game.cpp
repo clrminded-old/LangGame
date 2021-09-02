@@ -21,17 +21,29 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include "Graphics.h"
+#include "Box.h"
+#include <random>
 
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd )
 {
-    // I believe these are constructor stuff
-    box0.x = 300;
-    box0.y = 300;
-    box0.vx = 1;
-    box0.vy = 1;
+    // random_device -> random number generator -> uniform_int_distribution for x and y values with ranges.
+    std::random_device rd; // seed with a different value each time
+    std::mt19937 rng( rd() ); // random number generator
+    std::uniform_int_distribution<int> xDist(0, 770); // the random x values between 0 and 770 (account for width w/o going off screen)
+    std::uniform_int_distribution<int> yDist(0, 570); // the random y values between 0 and 570 (account for the height w/o going off screen)
+
+    box0.x = xDist(rng);
+    box0.y = yDist(rng);
+
+    box1.x = xDist(rng);
+    box1.y = yDist(rng);
+
+    box2.x = xDist(rng);
+    box2.y = yDist(rng);
+
 
     myBox.x = 400;
     myBox.y = 300;
@@ -50,8 +62,6 @@ void Game::Go()
 * The logic is in update, the drawing code is in ComposeFrame!
 * Like MVC. The way everything should be done!
 */
-
-
 void Game::UpdateModel()
 {
     if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
@@ -74,27 +84,69 @@ void Game::UpdateModel()
     myBox.x = ClampScreenX(myBox.x, myBox.width);
     myBox.y = ClampScreenY(myBox.y, myBox.height);
 
-    if (overlapTest(myBox.x, myBox.y, box0.x, box0.y)) {
-        isEaten = true;
+    box0.x += box0.vx;
+    box0.y += box0.vy;
+    box1.x += box1.vx;
+    box1.y += box1.vy;
+    box2.x += box2.vx;
+    box2.y += box2.vy;
+
+    {
+        const int box0Xold = box0.x;
+        const int box0Yold = box0.y;
+
+        box0.x = ClampScreenX(box0.x, box0.width);
+        if (box0.x != box0Xold) {
+            box0.vx = -box0.vx;
+        }
+
+        box0.y = ClampScreenY(box0.y, box0.height);
+        if (box0.y != box0Yold) {
+            box0.vy = -box0.vy;
+        }
+    }
+
+    {
+        const int box1Xold = box1.x;
+        const int box1Yold = box1.y;
+
+        box1.x = ClampScreenX(box1.x, box1.width);
+        if (box1.x != box1Xold) {
+            box1.vx = -box1.vx;
+        }
+
+        box1.y = ClampScreenY(box1.y, box1.height);
+        if (box1.y != box1Yold) {
+            box1.vy = -box1.vy;
+        }
+    }
+
+    {
+        const int box2Xold = box2.x;
+        const int box2Yold = box2.y;
+
+        box2.x = ClampScreenX(box2.x, box2.width);
+        if (box2.x != box2Xold) {
+            box2.vx = -box2.vx;
+        }
+
+        box2.y = ClampScreenY(box2.y, box2.height);
+        if (box2.y != box2Yold) {
+            box2.vy = -box2.vy;
+        }
     }
 }
 
-bool Game::overlapTest(int box0x, int box0y, int box1x, int box1y)
+bool Game::IsColliding(int x0, int y0, int width0, int height0, int x1, int y1, int width1, int height1)
 {
-    const int left_box0 = box0x;
-    const int right_box0 = box0x + 8;
-    const int top_box0 = box0y;
-    const int bottom_box0 = box0y + 8;
-
-    const int left_box1 = box1x;
-    const int right_box1 = box1x + 8;
-    const int top_box1 = box1y;
-    const int bottom_box1 = box1y + 8;
-
-    return left_box1 < right_box0 &&
-        right_box1 > left_box0 &&
-        bottom_box1 > top_box0 &&
-        top_box1 < bottom_box0;
+    const int right0 = x0 + width0;
+    const int bottom0 = y0 + height0;
+    const int right1 = x1 + width1;
+    const int bottom1 = y1 + height1;
+    return right0 >= x1 && 
+        x0 <= right1 &&
+        bottom0 >= y1 &&
+        y0 <= bottom1;
 }
 
 int Game::ClampScreenX(int x, int width) {
@@ -122,15 +174,14 @@ int Game::ClampScreenY(int y, int height) {
 
 void Game::ComposeFrame()
 {
-
     if (isEaten) {
     }
     else {
         box0.DrawBox(gfx);
     }
-
     myBox.DrawBox(gfx);
-    
+    box1.DrawBox(gfx);
+    box2.DrawBox(gfx);
 }
 
 /**
