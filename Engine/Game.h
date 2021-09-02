@@ -23,6 +23,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Box.h"
 
 class Game
 {
@@ -31,22 +32,26 @@ public:
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
+	
 private:
 	void ComposeFrame();
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
-	void DrawCrosshair(int x, int y, int r, int g, int b);
-	void DrawBox(int x, int y, int r, int g, int b);
+	
 	bool overlapTest(int x0, int y0, int x1, int y1);
+
+	int ClampScreenX(int x, int width);
+	int ClampScreenY(int y, int height);
 	/********************************/
 private:
 	MainWindow& wnd;
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	int x = 400;
-	int y = 300;
+	Box box0;
+	Box myBox;
+
 	int vx = 0;
 	int vy = 0;
 
@@ -57,5 +62,6 @@ private:
 	bool inhibitDown = false;
 	bool inhibitLeft = false;
 	bool inhibitRight = false;
+	bool isEaten = false;
 	/********************************/
 };
