@@ -55,6 +55,8 @@ private:
 	Box box2;
 	Actor myBox;
 
-	bool isEaten = false;
+	bool box0IsEaten = false;
+	bool box1IsEaten = false;
+	bool box2IsEaten = false;
 	/********************************/
 };
