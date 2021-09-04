@@ -35,6 +35,7 @@ Game::Game( MainWindow& wnd )
     std::uniform_int_distribution<int> xDist(0, 770); // the random x values between 0 and 770 (account for width w/o going off screen)
     std::uniform_int_distribution<int> yDist(0, 570); // the random y values between 0 and 570 (account for the height w/o going off screen)
 
+    direction = "down";
     // setting the random positions
     box0.x = xDist(rng);
     box0.y = yDist(rng);
@@ -76,18 +77,22 @@ void Game::UpdateModel()
 {
     if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
         myBox.x = myBox.x + 2;
+        direction = directions[1];
     }
     
     if (wnd.kbd.KeyIsPressed(VK_LEFT)) {
        myBox.x = myBox.x - 2;
+       direction = directions[0];
     }
     
     if (wnd.kbd.KeyIsPressed(VK_UP)) {
         myBox.y = myBox.y - 2;
+        direction = directions[2];
     }
    
     if (wnd.kbd.KeyIsPressed(VK_DOWN)) {
         myBox.y = myBox.y + 2;
+        direction = directions[3];
     }
 
     // these will bound the reticle inside the bounds of the screen
@@ -197,7 +202,21 @@ int Game::ClampScreenY(int y, int height) {
 
 void Game::ComposeFrame()
 {
-    myBox.DrawActor(gfx);
+    if (direction == "up") {
+        myBox.DrawActorBack(gfx);
+    }
+    if (direction == "down") {
+        myBox.DrawActorFront(gfx);
+    }
+    if (direction == "left") {
+        myBox.DrawActorLeft(gfx);
+    }
+    if (direction == "right") {
+        myBox.DrawActorRight(gfx);
+    }
+
+
+
     if (!box0IsEaten) {
         box0.DrawBox(gfx);
     }
