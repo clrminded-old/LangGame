@@ -74,8 +74,6 @@ void Game::Go()
 */
 void Game::UpdateModel()
 {
-    
-
     if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {
         myBox.x = myBox.x + 2;
     }
@@ -97,12 +95,9 @@ void Game::UpdateModel()
     //myBox.y = ClampScreenY(myBox.y, myBox.height);
     myBox.ClampToScreen();
 
-    box0.x += box0.vx;
-    box0.y += box0.vy;
-    box1.x += box1.vx;
-    box1.y += box1.vy;
-    box2.x += box2.vx;
-    box2.y += box2.vy;
+    box0.Update();
+    box1.Update();
+    box2.Update();
 
     // stub
     {
@@ -150,12 +145,18 @@ void Game::UpdateModel()
         }
     }
 
-// isEaten will return true is collides with any of the boxes
-    isEaten = IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box0.x, box0.y, box0.width, box0.height);
-    
-    isEaten = IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box1.x, box1.y, box1.width, box1.height);
-    
-    isEaten = IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box2.x, box2.y, box2.width, box2.height);
+    // isEaten will return true is collides with any of the boxes
+    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box0.x, box0.y, box0.width, box0.height)) {
+        box0IsEaten = true;
+    }
+    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box1.x, box1.y, box1.width, box1.height)) {
+        box1IsEaten = true;
+    }
+    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box2.x, box2.y, box2.width, box2.height)) {
+        box2IsEaten = true;
+    }
+   
+
 }
 
 bool Game::IsColliding(int x0, int y0, int width0, int height0, int x1, int y1, int width1, int height1)
@@ -196,17 +197,16 @@ int Game::ClampScreenY(int y, int height) {
 
 void Game::ComposeFrame()
 {
-    
-
-    if (isEaten) {
-    }
-    else {
+    myBox.DrawActor(gfx);
+    if (!box0IsEaten) {
         box0.DrawBox(gfx);
+    }
+    if (!box1IsEaten) {
         box1.DrawBox(gfx);
+    }
+    if (!box2IsEaten) {
         box2.DrawBox(gfx);
     }
-    myBox.DrawBox(gfx);
-    
 }
 
 /**

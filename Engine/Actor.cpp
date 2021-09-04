@@ -1,7 +1,7 @@
 #include "Actor.h"
 #include "Graphics.h"
 
-void Actor::DrawBox(Graphics& gfx)
+void Actor::DrawActor(Graphics& gfx)
 {
 	// top
 	gfx.PutPixel(x, y, 255, 255, 255);
