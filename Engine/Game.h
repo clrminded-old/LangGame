@@ -54,6 +54,8 @@ private:
 	Box box1;
 	Box box2;
 	Actor myBox;
+	std::vector<std::string> directions = { "left", "right", "up", "down" };
+	std::string direction;
 
 	bool box0IsEaten = false;
 	bool box1IsEaten = false;
