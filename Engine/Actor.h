@@ -3,7 +3,7 @@
 
 class Actor {
 public:
-	void DrawBox(Graphics& gfx);
+	void DrawActor(Graphics& gfx);
 	void ClampToScreen();
 
 	int x = 400;
