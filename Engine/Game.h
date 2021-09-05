@@ -23,8 +23,9 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "Box.h"
+#include "Coin.h"
 #include "Actor.h"
+#include "BrickBoarder.h"
 
 class Game
 {
@@ -50,15 +51,19 @@ private:
 	/********************************/
 	/*  User Variables              */
 	// myBox is the one that I control the movement of
-	Box box0;
-	Box box1;
-	Box box2;
 	Actor myBox;
+
+	Coin coin0;
+	Coin coin1;
+	Coin coin2;
+	
+	BrickBoarder brick;
+
 	std::vector<std::string> directions = { "left", "right", "up", "down" };
 	std::string direction;
 
-	bool box0IsEaten = false;
-	bool box1IsEaten = false;
-	bool box2IsEaten = false;
+	bool coin0IsCollected = false;
+	bool coin1IsCollected = false;
+	bool coin2IsCollected = false;
 	/********************************/
 };
