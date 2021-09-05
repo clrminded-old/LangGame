@@ -21,7 +21,7 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include "Graphics.h"
-#include "Box.h"
+#include "Coin.h"
 #include <random>
 
 Game::Game( MainWindow& wnd )
@@ -35,29 +35,33 @@ Game::Game( MainWindow& wnd )
     std::uniform_int_distribution<int> xDist(0, 770); // the random x values between 0 and 770 (account for width w/o going off screen)
     std::uniform_int_distribution<int> yDist(0, 570); // the random y values between 0 and 570 (account for the height w/o going off screen)
 
-    direction = "down";
-    // setting the random positions
-    box0.x = xDist(rng);
-    box0.y = yDist(rng);
-    box1.x = xDist(rng);
-    box1.y = yDist(rng);
-    box2.x = xDist(rng);
-    box2.y = yDist(rng);
-
-    // setting the initial velocities for the boxes
-    // right-down
-    box0.vx = 1;
-    box0.vy = 1;
-    // left-down
-    box1.vx = -1;
-    box1.vy = 1;
-    // left-up
-    box2.vx = -1;
-    box2.vy = -1;
-
-    // myBox is the one that I control the movement of
+    // mycoin is the one that I control the movement of
     myBox.x = 400;
     myBox.y = 300;
+    direction = "down";
+
+    // setting the random positions
+    coin0.x = xDist(rng);
+    coin0.y = yDist(rng);
+    coin1.x = xDist(rng);
+    coin1.y = yDist(rng);
+    coin2.x = xDist(rng);
+    coin2.y = yDist(rng);
+
+    brick.x = 0;
+    brick.y = 0;
+
+    //setting the initial velocities for the coines
+    //right-down
+    coin0.vx = 1;
+    coin0.vy = 1;
+    // left-down
+    coin1.vx = -1;
+    coin1.vy = 1;
+    // left-up
+    coin2.vx = -1;
+    coin2.vy = -1;
+    
 }
 
 void Game::Go()
@@ -96,69 +100,69 @@ void Game::UpdateModel()
     }
 
     // these will bound the reticle inside the bounds of the screen
-    //myBox.x = ClampScreenX(myBox.x, myBox.width);
-    //myBox.y = ClampScreenY(myBox.y, myBox.height);
+    //mycoin.x = ClampScreenX(mycoin.x, mycoin.width);
+    //mycoin.y = ClampScreenY(mycoin.y, mycoin.height);
     myBox.ClampToScreen();
 
-    box0.Update();
-    box1.Update();
-    box2.Update();
+    coin0.Update();
+    coin1.Update();
+    coin2.Update();
 
     // stub
+     {
+         const int coin0Xold = coin0.x;
+         const int coin0Yold = coin0.y;
+     
+         coin0.x = ClampScreenX(coin0.x, coin0.width);
+         if (coin0.x != coin0Xold) {
+             coin0.vx = -coin0.vx;
+         }
+     
+         coin0.y = ClampScreenY(coin0.y, coin0.height);
+         if (coin0.y != coin0Yold) {
+             coin0.vy = -coin0.vy;
+         }
+     }
+     //stub
+     {
+         const int coin1Xold = coin1.x;
+         const int coin1Yold = coin1.y;
+     
+         coin1.x = ClampScreenX(coin1.x, coin1.width);
+         if (coin1.x != coin1Xold) {
+             coin1.vx = -coin1.vx;
+         }
+     
+         coin1.y = ClampScreenY(coin1.y, coin1.height);
+         if (coin1.y != coin1Yold) {
+             coin1.vy = -coin1.vy;
+         }
+     }
+     //stub
     {
-        const int box0Xold = box0.x;
-        const int box0Yold = box0.y;
-
-        box0.x = ClampScreenX(box0.x, box0.width);
-        if (box0.x != box0Xold) {
-            box0.vx = -box0.vx;
+        const int coin2Xold = coin2.x;
+        const int coin2Yold = coin2.y;
+    
+        coin2.x = ClampScreenX(coin2.x, coin2.width);
+        if (coin2.x != coin2Xold) {
+            coin2.vx = -coin2.vx;
         }
-
-        box0.y = ClampScreenY(box0.y, box0.height);
-        if (box0.y != box0Yold) {
-            box0.vy = -box0.vy;
-        }
-    }
-    // stub
-    {
-        const int box1Xold = box1.x;
-        const int box1Yold = box1.y;
-
-        box1.x = ClampScreenX(box1.x, box1.width);
-        if (box1.x != box1Xold) {
-            box1.vx = -box1.vx;
-        }
-
-        box1.y = ClampScreenY(box1.y, box1.height);
-        if (box1.y != box1Yold) {
-            box1.vy = -box1.vy;
-        }
-    }
-    // stub
-    {
-        const int box2Xold = box2.x;
-        const int box2Yold = box2.y;
-
-        box2.x = ClampScreenX(box2.x, box2.width);
-        if (box2.x != box2Xold) {
-            box2.vx = -box2.vx;
-        }
-
-        box2.y = ClampScreenY(box2.y, box2.height);
-        if (box2.y != box2Yold) {
-            box2.vy = -box2.vy;
+    
+        coin2.y = ClampScreenY(coin2.y, coin2.height);
+        if (coin2.y != coin2Yold) {
+            coin2.vy = -coin2.vy;
         }
     }
 
-    // isEaten will return true is collides with any of the boxes
-    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box0.x, box0.y, box0.width, box0.height)) {
-        box0IsEaten = true;
+    // isEaten will return true is collides with any of the coines
+    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, coin0.x, coin0.y, coin0.width, coin0.height)) {
+        coin0IsCollected = true;
     }
-    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box1.x, box1.y, box1.width, box1.height)) {
-        box1IsEaten = true;
+    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, coin1.x, coin1.y, coin1.width, coin1.height)) {
+        coin1IsCollected = true;
     }
-    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, box2.x, box2.y, box2.width, box2.height)) {
-        box2IsEaten = true;
+    if (IsColliding(myBox.x, myBox.y, myBox.width, myBox.height, coin2.x, coin2.y, coin2.width, coin2.height)) {
+        coin2IsCollected = true;
     }
    
 
@@ -179,11 +183,11 @@ bool Game::IsColliding(int x0, int y0, int width0, int height0, int x1, int y1, 
 
 int Game::ClampScreenX(int x, int width) {
     const int right = x + width;
-    if (x < 0) {
-        return 0;
+    if (x < 0 + 32) {
+        return 32;
     }
-    else if (right >= gfx.ScreenWidth) {
-        return (gfx.ScreenWidth - 1) - width;
+    else if (right >= gfx.ScreenWidth - 32) {
+        return (gfx.ScreenWidth - 32) - width;
     }
     return x;
     
@@ -191,11 +195,11 @@ int Game::ClampScreenX(int x, int width) {
 
 int Game::ClampScreenY(int y, int height) {
     const int bottom = y + height;
-    if (y < 0) {
-        return 0;
+    if (y < 0 + 32) {
+        return 32;
     }
-    else if (bottom >= gfx.ScreenHeight) {
-        return (gfx.ScreenHeight - 1) - height;
+    else if (bottom >= gfx.ScreenHeight - 32) {
+        return (gfx.ScreenHeight - 32) - height;
     }
     return y;
 }
@@ -217,15 +221,31 @@ void Game::ComposeFrame()
 
 
 
-    if (!box0IsEaten) {
-        box0.DrawBox(gfx);
+
+    
+    if (!coin0IsCollected) {
+        coin0.DrawCoin3(gfx);
     }
-    if (!box1IsEaten) {
-        box1.DrawBox(gfx);
+    if (!coin1IsCollected) {
+        coin1.DrawCoin4(gfx);
     }
-    if (!box2IsEaten) {
-        box2.DrawBox(gfx);
+    if (!coin2IsCollected) {
+        coin2.DrawCoin1(gfx);
     }
+
+
+    // draw boarder x
+    for (int i = 0; i < Graphics::ScreenWidth; i += 32) {
+        brick.DrawBrick(gfx, i, 0);
+        brick.DrawBrick(gfx, i, Graphics::ScreenHeight - 33);
+    }
+    
+    // draw boarder y
+    for (int i = 32; i < Graphics::ScreenHeight - 32; i += 32) {
+        brick.DrawBrickDown(gfx, 0, i);
+        brick.DrawBrickDown(gfx, Graphics::ScreenWidth - 32, i);
+    }
+    
 }
 
 /**
@@ -249,7 +269,7 @@ void Game::ComposeFrame()
 * VIdeo 3 stuff
 * This conditional will be checking for if the shift key is being pressed or not, this is to determine shape
 * The shape of the radical is more important than the color that the radical is
-* so if shift is being pressed we will draw the box, if shift is not being pressed than the crosshair will be the shape of the radical
+* so if shift is being pressed we will draw the coin, if shift is not being pressed than the crosshair will be the shape of the radical
 * this is the default shape.
 *
 * My initial solution:
@@ -257,10 +277,10 @@ void Game::ComposeFrame()
 * this is to determine the color of the radical.
 * 
 * if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
-*   DrawBox(x, y, 255, gb, gb);
+*   Drawcoin(x, y, 255, gb, gb);
 * }
 * else {
-*   DrawBox(x, y, 255, 0, 0);
+*   Drawcoin(x, y, 255, 0, 0);
 * }
 * 
 * if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {

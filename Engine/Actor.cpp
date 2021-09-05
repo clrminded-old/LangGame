@@ -2329,17 +2329,17 @@ void Actor::DrawActorBack(Graphics& gfx)
 void Actor::ClampToScreen()
 {
     const int right = x + width;
-    if (x < 0) {
-        x = 0;
+    if (x < 0 + 32) {
+        x = 0 + 32;
     }
-    else if (right >= Graphics::ScreenWidth) {
-        x =  Graphics::ScreenWidth - width;
+    else if (right >= Graphics::ScreenWidth - 32) {
+        x =  (Graphics::ScreenWidth - 32) - width;
     }
     const int bottom = y + height;
-    if (y < 0) {
-        y = 0;
+    if (y < 0  + 32) {
+        y = 0 + 32;
     }
-    else if (bottom >= Graphics::ScreenHeight) {
-        y =  Graphics::ScreenHeight - height;
+    else if (bottom >= Graphics::ScreenHeight - 32) {
+        y =  (Graphics::ScreenHeight - 32) - height;
     }
 }
